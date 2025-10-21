@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HappyGoal Penalty - Le Défi Ultime des Tirs au But !</title>
+    <meta name="description" content="Téléchargez HappyGoal Penalty, le mini-jeu de football dynamique pour des séances de tirs au but intenses. Disponible sur Google Play.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1a0a 0%, #1a3a1a 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animation de fond */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a1a0a, #1a3a1a, #0f2f0f);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '⚽';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A, #CDDC39);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: slideDown 1s ease-out;
+            text-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #8BC34A;
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Image principale avec effet */
+        .main-image-wrapper {
+            position: relative;
+            margin: 50px 0;
+            animation: scaleIn 1.2s ease-out;
+            max-width: 800px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .main-image-wrapper::after {
+            content: '🎮 Jouer maintenant';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .main-image-wrapper:hover::after {
+            opacity: 1;
+        }
+
+        .main-image-wrapper:hover .main-image {
+            filter: brightness(0.6);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .main-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            border-radius: 20px;
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.05); opacity: 0.5; }
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            display: block;
+            transition: filter 0.3s ease;
+        }
+
+        /* Section de téléchargement */
+        .download-section {
+            padding: 60px 20px;
+            text-align: center;
+            animation: fadeInUp 1.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .download-text {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            text-decoration: none;
+            padding: 20px 50px;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Galerie de captures */
+        .gallery {
+            padding: 80px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 50px;
+            color: #8BC34A;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 0;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .gallery-item::after {
+            content: '📱 Télécharger';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 13px;
+            transition: filter 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(0.5);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(76, 175, 80, 0.6);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3);
+        }
+
+        .placeholder-text {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(76, 175, 80, 0.2);
+            border-color: rgba(76, 175, 80, 0.6);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #8BC34A;
+        }
+
+        .feature-desc {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 80px;
+            border-top: 2px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 20px;
+            }
+            
+            .main-image-wrapper {
+                margin: 30px 0;
+            }
+            
+            .download-btn {
+                padding: 15px 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1 class="title">HappyGoal</h1>
+        <p class="subtitle">🔥 Le Défi Ultime des Tirs au But ! 🔥</p>
+        
+        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
+           target="_blank" 
+           class="download-btn" style="margin-bottom: 40px;">
+            📱 Télécharger sur Play Store
+        </a>
+        
+        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
+           target="_blank" 
+           class="main-image-wrapper">
+            <img src="Affiche HappyGoal.png" 
+                 alt="HappyGoal Penalty - Affiche du jeu" 
+                 class="main-image">
+        </a>
+    </section>
+
+    <section class="features">
+        <h2 class="gallery-title">Pourquoi HappyGoal ?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Action Rapide</h3>
+                <p class="feature-desc">Des parties courtes et intenses pour un maximum d'adrénaline !</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Précision</h3>
+                <p class="feature-desc">Visez le coin parfait et devenez le roi des tirs au but</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Compétition</h3>
+                <p class="feature-desc">Battez vos records et défiez vos amis !</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-section">
+        <p class="download-text">Prêt à marquer le but de la victoire ? ⚽</p>
+        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
+           target="_blank" 
+           class="download-btn">
+            📱 Télécharger sur Play Store
+        </a>
+    </section>
+
+    <section class="gallery">
+        <h2 class="gallery-title">Captures d'écran</h2>
+        <div class="gallery-grid">
+            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
+                <img src="A.png" alt="Capture d'écran HappyGoal 1">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
+                <img src="B.png" alt="Capture d'écran HappyGoal 2">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
+                <img src="C.png" alt="Capture d'écran HappyGoal 3">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
+                <img src="D.png" alt="Capture d'écran HappyGoal 4">
+            </a>
+        </div>
+    </section>
+
+    <section class="download-section">
+        <p class="download-text">Rejoignez l'aventure maintenant ! 🎮</p>
+        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
+           target="_blank" 
+           class="download-btn">
+            📱 Télécharger sur Play Store
+        </a>
+    </section>
+
+    <footer class="footer">
+        <p class="footer-text">© 2025 HappyGoal Penalty. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
