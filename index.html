@@ -3,228 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HappyGoal Penalty - Le Défi Ultime des Tirs au But !</title>
-    <meta name="description" content="Téléchargez HappyGoal Penalty, le mini-jeu de football dynamique pour des séances de tirs au but intenses. Disponible sur Google Play.">
+    <title>HeyHappy - Votre partenaire en développement digital</title>
+    <link rel="icon" href="images/heyhappy.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --brand-green: #00ff88;
+            --brand-green-dark: #00cc6d;
+            --brand-green-glow: rgba(0, 255, 136, 0.3);
+            --bg-dark: #0a0e1a;
+            --bg-darker: #050810;
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --text-light: #cbd5e1;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a1a0a 0%, #1a3a1a 100%);
-            color: white;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-white);
+            line-height: 1.7;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Animation de fond */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body::before {
-            content: '';
+        /* Animated Background */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0a1a0a, #1a3a1a, #0f2f0f);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            z-index: -1;
-            opacity: 0.8;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        .hero::after {
-            content: '⚽';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.05;
-            animation: float 6s ease-in-out infinite;
             z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--brand-green) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #00ffdd 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--brand-green) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            animation-delay: -14s;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(15deg); }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(-50px, 100px) scale(0.9); }
+            75% { transform: translate(-100px, -50px) scale(1.05); }
         }
 
-        .title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(45deg, #4CAF50, #8BC34A, #CDDC39);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            animation: slideDown 1s ease-out;
-            text-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: #8BC34A;
-            margin-bottom: 40px;
-            animation: fadeIn 1.5s ease-out;
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Image principale avec effet */
-        .main-image-wrapper {
-            position: relative;
-            margin: 50px 0;
-            animation: scaleIn 1.2s ease-out;
-            max-width: 800px;
+        /* Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-        }
-
-        .main-image-wrapper::after {
-            content: '🎮 Jouer maintenant';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(76, 175, 80, 0.95);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
             pointer-events: none;
-            white-space: nowrap;
-            z-index: 10;
         }
 
-        .main-image-wrapper:hover::after {
-            opacity: 1;
+        /* Content Wrapper */
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
         }
-
-        .main-image-wrapper:hover .main-image {
-            filter: brightness(0.6);
+        
+        /* Header */
+        header {
+            background: rgba(10, 14, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1.2rem 0;
         }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        
+        header.scrolled {
+            padding: 0.8rem 0;
+            background: rgba(10, 14, 26, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 255, 136, 0.1);
         }
-
-        .main-image-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            background: linear-gradient(45deg, #4CAF50, #8BC34A);
-            border-radius: 20px;
-            z-index: -1;
-            animation: pulse 2s ease-in-out infinite;
-            opacity: 0.3;
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.05); opacity: 0.5; }
-        }
-
-        .main-image {
-            width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-            display: block;
-            transition: filter 0.3s ease;
-        }
-
-        /* Section de téléchargement */
-        .download-section {
-            padding: 60px 20px;
-            text-align: center;
-            animation: fadeInUp 1.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .download-text {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            margin-bottom: 40px;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #4CAF50, #66BB6A);
-            color: white;
+        
+        .logo {
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            padding: 20px 50px;
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-            font-weight: bold;
-            border-radius: 50px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 0 20px var(--brand-green-glow));
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
             position: relative;
             overflow: hidden;
         }
 
-        .download-btn::before {
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--brand-green-glow), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--brand-green);
+            background: rgba(0, 255, 136, 0.05);
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-green-dark) 100%);
+            color: var(--bg-darker);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--brand-green-glow);
+        }
+
+        .cta-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -232,258 +227,1160 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            transition: left 0.5s ease;
         }
 
-        .download-btn:hover::before {
+        .cta-button:hover::before {
             left: 100%;
         }
-
-        .download-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.6);
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--brand-green-glow);
         }
-
-        .download-btn:active {
-            transform: translateY(-2px) scale(1.02);
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-white);
+            cursor: pointer;
         }
-
-        /* Galerie de captures */
-        .gallery {
-            padding: 80px 20px;
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 3rem 120px;
             max-width: 1400px;
             margin: 0 auto;
         }
-
-        .gallery-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 50px;
-            color: #8BC34A;
-        }
-
-        .gallery-grid {
+        
+        .hero-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--brand-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dynamic-word {
+            color: var(--brand-green);
+           
+            transition: all 0.3s ease;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.9;
+        }
+        
+        .hero-features {
+            list-style: none;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
-        .gallery-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 0;
-            border: 2px solid rgba(76, 175, 80, 0.2);
-            transition: all 0.3s ease;
-            min-height: 300px;
+        .hero-features li:hover {
+            border-color: var(--brand-green);
+            transform: translateX(10px);
+            box-shadow: 0 0 30px var(--brand-green-glow);
+        }
+        
+        .hero-features i {
+            color: var(--brand-green);
+            font-size: 1.3rem;
+            filter: drop-shadow(0 0 10px var(--brand-green-glow));
+        }
+        
+        .hero-image {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--brand-green), transparent, var(--brand-green));
+            border-radius: 24px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .trust-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .avatars {
+            display: flex;
+            margin-left: -10px;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-darker);
+            margin-left: -15px;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--brand-green-glow);
+        }
+        
+        .trust-text {
+            font-size: 0.95rem;
+        }
+        
+        .stars {
+            color: var(--brand-green);
+            margin-bottom: 0.3rem;
+            filter: drop-shadow(0 0 10px var(--brand-green-glow));
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 120px 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--brand-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--brand-green), transparent);
+            border-radius: 3px;
+            box-shadow: 0 0 20px var(--brand-green-glow);
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 2.5rem auto 0;
+        }
+        
+        /* Card Styles */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            border-color: var(--brand-green);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 255, 136, 0.2);
+        }
+        
+        .glass-card p {
+            font-size: 1.15rem;
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+        
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .project-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--brand-green), transparent);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(0, 255, 136, 0.3);
+        }
+        
+        .project-image {
+            height: 240px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
             overflow: hidden;
-            cursor: pointer;
             position: relative;
-            text-decoration: none;
         }
 
-        .gallery-item::after {
-            content: '📱 Télécharger';
+        .project-image::after {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(76, 175, 80, 0.95);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(0, 255, 136, 0.1));
             opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            white-space: nowrap;
+            transition: opacity 0.4s ease;
         }
 
-        .gallery-item:hover::after {
+        .project-card:hover .project-image::after {
             opacity: 1;
         }
-
-        .gallery-item img {
+        
+        .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 13px;
-            transition: filter 0.3s ease;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+        
+        .project-description {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--brand-green);
+            color: var(--brand-green);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .gallery-item:hover img {
-            filter: brightness(0.5);
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--brand-green);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
         }
 
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            border-color: rgba(76, 175, 80, 0.6);
-            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3);
+        .btn-outline:hover::before {
+            width: 300%;
+            height: 300%;
         }
 
-        .placeholder-text {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-align: center;
+        .btn-outline span, .btn-outline i {
+            position: relative;
+            z-index: 1;
         }
-
-        /* Features Section */
-        .features {
-            padding: 80px 20px;
-            max-width: 1200px;
+        
+        .btn-outline:hover {
+            color: var(--bg-darker);
+            transform: translateX(5px);
+            box-shadow: 0 0 30px var(--brand-green-glow);
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 1000px;
             margin: 0 auto;
         }
+        
+        .faq-item {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--brand-green);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 1.8rem 2.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-white);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            color: var(--brand-green);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--brand-green);
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 2.5rem;
+        }
+        
+        .faq-answer.show {
+            max-height: 500px;
+            padding: 0 2.5rem 1.8rem;
+        }
+        
+        .faq-answer p {
+            color: var(--text-gray);
+            line-height: 1.9;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 999;
+        }
+        
+        .whatsapp-button {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: var(--text-white);
+            padding: 1.2rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 0 40px rgba(37, 211, 102, 0.4);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .whatsapp-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 60px rgba(37, 211, 102, 0.6);
+        }
+        
+        .whatsapp-button i {
+            font-size: 1.8rem;
+            animation: pulse 2s infinite;
+        }
 
-        .features-grid {
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid var(--border-color);
+            padding: 5rem 3rem 2rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--brand-green), transparent);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
-
-        .feature-card {
-            background: rgba(76, 175, 80, 0.1);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 2px solid rgba(76, 175, 80, 0.3);
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--brand-green);
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 1rem;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        }
+        
+        .footer-section a:hover {
+            color: var(--brand-green);
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--brand-green);
+            border-color: var(--brand-green);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--brand-green-glow);
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(76, 175, 80, 0.2);
-            border-color: rgba(76, 175, 80, 0.6);
+        .social-icons a:hover i {
+            color: var(--bg-darker);
         }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-gray);
         }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #8BC34A;
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        .feature-desc {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
+        
+        .fade-in {
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
         }
-
-        /* Footer */
-        .footer {
-            padding: 40px 20px;
-            background: rgba(0, 0, 0, 0.3);
-            margin-top: 80px;
-            border-top: 2px solid rgba(76, 175, 80, 0.2);
-        }
-
-        .footer-text {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
+        
         /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 20px;
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(10, 14, 26, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 3rem 2rem;
+                transition: left 0.4s ease;
+                border-right: 1px solid var(--border-color);
             }
             
-            .main-image-wrapper {
-                margin: 30px 0;
+            .nav-links.active {
+                left: 0;
             }
             
-            .download-btn {
-                padding: 15px 35px;
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-container {
+                padding: 0 2rem;
+            }
+
+            .hero,
+            section {
+                padding-left: 2rem;
+                padding-right: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <h1 class="title">HappyGoal</h1>
-        <p class="subtitle">🔥 Le Défi Ultime des Tirs au But ! 🔥</p>
-        
-        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
-           target="_blank" 
-           class="download-btn" style="margin-bottom: 40px;">
-            📱 Télécharger sur Play Store
-        </a>
-        
-        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
-           target="_blank" 
-           class="main-image-wrapper">
-            <img src="Affiche HappyGoal.png" 
-                 alt="HappyGoal Penalty - Affiche du jeu" 
-                 class="main-image">
-        </a>
-    </section>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+    <div class="grid-bg"></div>
 
-    <section class="features">
-        <h2 class="gallery-title">Pourquoi HappyGoal ?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Action Rapide</h3>
-                <p class="feature-desc">Des parties courtes et intenses pour un maximum d'adrénaline !</p>
+    <div class="content-wrapper">
+        <!-- Header -->
+        <header id="main-header">
+            <div class="header-container">
+                <a href="#home" class="logo">
+                    <img src="images/heyhappy.png" alt="HeyHappy Logo">
+                </a>
+                
+                <nav class="nav-links" id="navLinks">
+                    <a href="#home">Accueil</a>
+                    <a href="#about">Qui sommes-nous?</a>
+                    <a href="#for-who">C'est pour qui?</a>
+                    <a href="#realisations">Réalisations</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="mailto:heyhappyproject@gmail.com" class="cta-button">
+                        <i class="fas fa-envelope"></i>
+                        Nous contacter
+                    </a>
+                </nav>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3 class="feature-title">Précision</h3>
-                <p class="feature-desc">Visez le coin parfait et devenez le roi des tirs au but</p>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+            <div class="hero-text fade-in">
+                <h1>
+                Ajoutez un <span class="dynamic-word">designer</span><br>par abonnement à votre équipe
+                </h1>
+                <p>
+                Complétez votre équipe d'un designer, développeur web, développeur mobile, graphiste par abonnement sans engagement : créations graphiques à volonté via collaboration mensualisée pour 1, 2, 3 mois... ou plus si affinités.
+                </p>
+                <ul class="hero-features">
+                <li><i class="fas fa-check-circle"></i> Vos contenus sous 48 - 72h</li>
+                <li><i class="fas fa-check-circle"></i> Un abonnement à prix fixe</li>
+                <li><i class="fas fa-check-circle"></i> Résiliez à tout moment</li>
+                </ul>
+                <a href="mailto:heyhappyproject@gmail.com" class="cta-button">
+                Commencer maintenant
+                <i class="fas fa-arrow-right"></i>
+                </a>
+                
+                <div class="trust-section">
+                <div class="avatars">
+                    <img src="https://i.pravatar.cc/150?img=1" alt="Client" class="avatar">
+                    <img src="https://i.pravatar.cc/150?img=2" alt="Client" class="avatar">
+                    <img src="https://i.pravatar.cc/150?img=3" alt="Client" class="avatar">
+                </div>
+                <div class="trust-text">
+                    <div class="stars">★★★★★</div>
+                    <div>Plus de 100 clients satisfaits</div>
+                </div>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🏆</div>
-                <h3 class="feature-title">Compétition</h3>
-                <p class="feature-desc">Battez vos records et défiez vos amis !</p>
+            
+            <!-- Clean, futurist visual (no external image) -->
+            <div class="hero-image fade-in" aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:2.2rem;">
+                <div style="display:flex;gap:1rem;align-items:center;justify-content:center;flex-wrap:wrap;">
+                <!-- Card style preview -->
+                <div style="width:220px;height:260px;border-radius:18px;background:linear-gradient(135deg, rgba(0,255,136,0.06), rgba(0,255,136,0.02));border:1px solid rgba(255,255,255,0.04);box-shadow:0 20px 50px rgba(0,255,136,0.06);overflow:hidden;display:flex;flex-direction:column;">
+                    <div style="height:48px;background:linear-gradient(90deg, rgba(0,255,136,0.12), transparent);"></div>
+                    <div style="flex:1;padding:1.2rem;color:var(--text-light);display:flex;flex-direction:column;justify-content:center;">
+                    <div style="font-weight:800;color:var(--text-white);font-size:1.1rem;margin-bottom:0.6rem;">Interface élégante</div>
+                    <div style="color:var(--text-gray);font-size:0.9rem;line-height:1.4;">Design system optimisé • Composants prêts à l'emploi</div>
+                    </div>
+                    <div style="padding:0.8rem;text-align:center;background:linear-gradient(135deg, rgba(0,255,136,0.02), transparent);font-weight:700;color:var(--brand-green);">Prototype • 48h</div>
+                </div>
+
+                <!-- Minimalistic stats block -->
+                <div style="width:140px;height:160px;border-radius:14px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,255,136,0.03));border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem;box-shadow:0 12px 30px rgba(0,0,0,0.45);">
+                    <div style="font-size:1.8rem;font-weight:900;color:var(--brand-green);">48h</div>
+                    <div style="font-size:0.9rem;color:var(--text-gray);">Livraison</div>
+                    <div style="width:60%;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--brand-green),var(--brand-green-dark));margin-top:6px;"></div>
+                </div>
+
+                <!-- Abstract card with lines -->
+                <div style="width:180px;height:220px;border-radius:16px;background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:1rem;backdrop-filter:blur(6px);">
+                    <div style="width:70%;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--brand-green),transparent);margin-bottom:0.8rem;"></div>
+                    <div style="width:95%;height:8px;border-radius:6px;background:rgba(255,255,255,0.04);margin-bottom:0.6rem;"></div>
+                    <div style="width:80%;height:8px;border-radius:6px;background:rgba(255,255,255,0.03);"></div>
+                    <div style="margin-top:1rem;color:var(--text-light);font-weight:700;">Design system • UI</div>
+                </div>
+                </div>
             </div>
+            </div>
+        </section></div>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <h2>Qui sommes-nous ?</h2>
+            </div>
+            <div class="glass-card fade-in">
+                <p>
+                    HeyHappy est une startup dynamique fondée par une équipe de jeunes experts passionnés et performants dans le domaine du design et du développement numérique. Notre mission est de mettre à votre disposition des talents créatifs et techniques pour répondre à vos besoins spécifiques, que ce soit pour du design graphique, du développement web, mobile, ou tout autre projet digital.
+                </p>
+                <p>
+                    Nous croyons en une approche collaborative et flexible, permettant à chaque entreprise de bénéficier d'un service sur mesure. Avec HeyHappy, vous n'êtes plus contraint aux horaires ou aux coûts fixes des agences traditionnelles. Nous proposons une solution d'abonnement sans engagement, avec des délais de livraison rapides et une équipe dédiée à vos projets, prête à s'adapter à vos besoins.
+                </p>
+                
+                <div class="trust-section" style="margin-top: 2rem;">
+                    <div class="avatars">
+                        <img src="https://i.pravatar.cc/150?img=4" alt="Expert" class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Expert" class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=6" alt="Expert" class="avatar">
+                    </div>
+                    <div class="trust-text">
+                        <div style="color: var(--text-light);">50+ experts pour vos besoins</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- For Who Section -->
+        <section id="for-who">
+            <div class="section-header">
+                <h2>C'est pour qui ?</h2>
+            </div>
+            <div class="glass-card fade-in">
+                <p>
+                    Notre offre est spécialement conçue pour les entreprises ambitieuses de toutes tailles qui souhaitent renforcer leurs équipes créatives et techniques de manière flexible. Que vous soyez une startup, une PME ou une grande entreprise, HeyHappy est là pour vous accompagner à chaque étape de vos projets digitaux.
+                </p>
+                <p>
+                    Vous avez besoin d'un designer, d'un développeur web, ou d'un graphiste sans vous engager à long terme ? Notre solution d'abonnement vous permet de bénéficier d'experts à la demande, selon vos besoins spécifiques et votre rythme. Plus de délais interminables ou de coûts fixes. Nous vous offrons la possibilité de travailler avec des professionnels hautement qualifiés, quand vous en avez besoin.
+                </p>
+                <p>
+                    Que vous souhaitiez améliorer votre présence en ligne, créer une application mobile, ou produire du contenu visuel percutant, HeyHappy est la solution idéale pour des résultats rapides et de qualité. Un abonnement simple, flexible, et sans engagement, pour propulser votre entreprise vers de nouveaux sommets.
+                </p>
+            </div>
+        </section>
+
+        <!-- Réalisations Section -->
+        <section id="realisations">
+            <div class="section-header">
+                <h2>Nos Réalisations</h2>
+                <p>Des solutions innovantes conçues pour offrir des expériences utilisateur exceptionnelles</p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="images/AP.png" alt="Auto-Permis.com">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Auto-Permis.com</h3>
+                        <p class="project-description">
+                            Une plateforme innovante conçue pour simplifier la préparation à l'examen du permis de conduire avec des tests en ligne et un suivi personnalisé.
+                        </p>
+                        <a href="https://auto-permis.com" target="_blank" class="btn-outline">
+                            <span>Visiter la plateforme</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="images/logo.png" alt="HappyGoal">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">HappyGoal</h3>
+                        <p class="project-description">
+                            Un jeu de tirs au but simple mais addictif développé en Dart avec Flutter. Conçu pour des matchs rapides et du jeu occasionnel.
+                        </p>
+                        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="btn-outline">
+                            <span>Voir sur Google Play</span>
+                            <i class="fab fa-google-play"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="images/MathsCool (1) (1).png" alt="MathsCool">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">MathsCool</h3>
+                        <p class="project-description">
+                            Une application éducative développée avec Flutter pour aider les enfants à apprendre les mathématiques de manière ludique et interactive.
+                        </p>
+                        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.mathscool" target="_blank" class="btn-outline">
+                            <span>Voir sur Google Play</span>
+                            <i class="fab fa-google-play"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="https://res.cloudinary.com/domnxwnkd/image/upload/v1746806393/SmartSpend_ndfso8.png" alt="SmartSpend">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">SmartSpend</h3>
+                        <p class="project-description">
+                            Une application Flutter pour aider les utilisateurs à gérer leurs finances personnelles en suivant les dépenses, en créant des budgets et en générant des rapports financiers.
+                        </p>
+                        <a href="#" class="btn-outline">
+                            <span>Bientôt sur Google Play</span>
+                            <i class="fab fa-google-play"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="https://res.cloudinary.com/domnxwnkd/image/upload/v1746806394/collabo_fcxuj5.png" alt="Collabo">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Collabo</h3>
+                        <p class="project-description">
+                            Un jeu interactif à thème romantique qui permet aux couples d'explorer ensemble des défis amusants et des questions. Idéal pour renforcer les liens.
+                        </p>
+                        <a href="#" class="btn-outline">
+                            <span>Bientôt sur Google Play</span>
+                            <i class="fab fa-google-play"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="https://res.cloudinary.com/domnxwnkd/image/upload/v1746806396/playstore_vqc9vj.png" alt="MyMétéo">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">MyMétéo</h3>
+                        <p class="project-description">
+                            Une application météo simple et intuitive développée avec Flutter, conçue pour fournir des prévisions météorologiques en temps réel.
+                        </p>
+                        <a href="#" class="btn-outline">
+                            <span>Bientôt sur Google Play</span>
+                            <i class="fab fa-google-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+            <div class="section-header">
+                <h2>Questions Fréquentes</h2>
+                <p>Tout ce que vous devez savoir sur nos services</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Comment souscrire à l'abonnement ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vous pouvez vous inscrire directement en nous contactant par email à heyhappyproject@gmail.com ou via WhatsApp au +229 01 68 62 87 40. Notre équipe vous guidera à travers le processus d'inscription et répondra à toutes vos questions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Quels sont les délais de livraison ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Les délais de livraison des créations varient entre 48 et 72 heures, selon la charge de travail et la complexité de votre demande. Nous nous efforçons de respecter ces délais pour chaque projet.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Puis-je annuler mon abonnement à tout moment ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, l'abonnement est totalement flexible et sans engagement. Vous pouvez l'annuler à tout moment en nous contactant via notre email ou par WhatsApp.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Quels types de services sont couverts par l'abonnement ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Notre abonnement couvre une large gamme de services créatifs et techniques : design graphique, développement web et mobile, création d'illustrations, gestion de contenu, et bien plus encore. Vous avez accès à tous ces services sans frais supplémentaires pendant la durée de votre abonnement.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Est-ce que l'abonnement inclut un nombre limité de demandes ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Non, l'abonnement vous permet de faire autant de demandes que nécessaire, dans la limite de vos besoins mensuels. Vous avez une totale liberté d'utilisation selon vos priorités.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Comment savoir quel expert est disponible pour mon projet ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vous êtes assigné à un expert ou une équipe dédiée en fonction de vos besoins spécifiques. Vous serez en contact direct avec votre expert pour discuter de vos attentes et suivre l'avancement du projet.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Puis-je choisir le niveau d'expérience de mon expert ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, nous offrons différentes options en fonction de vos exigences. Vous pouvez choisir parmi des experts juniors, confirmés ou seniors, selon la complexité et l'envergure de vos projets.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Que faire si je ne suis pas satisfait de la livraison ?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Si vous n'êtes pas satisfait de la livraison, nous offrons une révision gratuite pour ajuster les éléments non conformes à vos attentes. Nous voulons nous assurer que chaque projet réponde parfaitement à vos besoins.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WhatsApp Float Button -->
+        <div class="whatsapp-float">
+            <a href="https://wa.me/2290168628740" target="_blank" class="whatsapp-button">
+                <i class="fab fa-whatsapp"></i>
+                <span>On en parle?</span>
+            </a>
         </div>
-    </section>
 
-    <section class="download-section">
-        <p class="download-text">Prêt à marquer le but de la victoire ? ⚽</p>
-        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
-           target="_blank" 
-           class="download-btn">
-            📱 Télécharger sur Play Store
-        </a>
-    </section>
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HeyHappy</h3>
+                    <p>Votre partenaire en développement digital</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/@Heyhappy-dev" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/HeyyHappy" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://github.com/Happyazondekon" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Liens rapides</h3>
+                    <a href="#home">Accueil</a>
+                    <a href="#about">Qui sommes-nous?</a>
+                    <a href="#realisations">Réalisations</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <a href="mailto:heyhappyproject@gmail.com">
+                        <i class="fas fa-envelope"></i> heyhappyproject@gmail.com
+                    </a>
+                    <a href="https://wa.me/2290168628740" target="_blank">
+                        <i class="fab fa-whatsapp"></i> +229 01 68 62 87 40
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 HeyHappy. Tous droits réservés.</p>
+            </div>
+        </footer>
+    </div>
 
-    <section class="gallery">
-        <h2 class="gallery-title">Captures d'écran</h2>
-        <div class="gallery-grid">
-            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
-                <img src="A.png" alt="Capture d'écran HappyGoal 1">
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
-                <img src="B.png" alt="Capture d'écran HappyGoal 2">
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
-                <img src="C.png" alt="Capture d'écran HappyGoal 3">
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" target="_blank" class="gallery-item">
-                <img src="D.png" alt="Capture d'écran HappyGoal 4">
-            </a>
-        </div>
-    </section>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-    <section class="download-section">
-        <p class="download-text">Rejoignez l'aventure maintenant ! 🎮</p>
-        <a href="https://play.google.com/store/apps/details?id=com.heyhappy.happygoal" 
-           target="_blank" 
-           class="download-btn">
-            📱 Télécharger sur Play Store
-        </a>
-    </section>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
 
-    <footer class="footer">
-        <p class="footer-text">© 2025 HappyGoal Penalty. Tous droits réservés.</p>
-    </footer>
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+
+        // Dynamic word animation
+        const words = ['designer', 'développeur web', 'développeur mobile', 'graphiste'];
+        let wordIndex = 0;
+        const wordElement = document.querySelector('.dynamic-word');
+        
+        setInterval(() => {
+            wordElement.style.opacity = '0';
+            wordElement.style.transform = 'translateY(-10px)';
+            
+            setTimeout(() => {
+                wordIndex = (wordIndex + 1) % words.length;
+                wordElement.textContent = words[wordIndex];
+                wordElement.style.opacity = '1';
+                wordElement.style.transform = 'translateY(0)';
+            }, 300);
+        }, 3000);
+
+        // FAQ toggle
+        function toggleFAQ(button) {
+            const answer = button.nextElementSibling;
+            const allAnswers = document.querySelectorAll('.faq-answer');
+            const allQuestions = document.querySelectorAll('.faq-question');
+            
+            allAnswers.forEach(item => {
+                if (item !== answer) {
+                    item.classList.remove('show');
+                }
+            });
+            
+            allQuestions.forEach(item => {
+                if (item !== button) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            answer.classList.toggle('show');
+            button.classList.toggle('active');
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 100;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for orbs
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const orbs = document.querySelectorAll('.gradient-orb');
+            orbs.forEach((orb, index) => {
+                const speed = 0.5 + (index * 0.2);
+                orb.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
