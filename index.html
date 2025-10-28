@@ -394,6 +394,69 @@
             margin-bottom: 0.3rem;
             filter: drop-shadow(0 0 10px var(--brand-green-glow));
         }
+
+          /* Améliorations pour mobile - Sections avec système Voir plus */
+  @media (max-width: 768px) {
+    #about .glass-card,
+    #for-who .glass-card {
+      padding: 1.5rem;
+    }
+    
+    .mobile-text-container .text-content {
+      max-height: none;
+      overflow: visible;
+    }
+    
+    .mobile-text-container.collapsed .extra-text {
+      display: none;
+    }
+    
+    .mobile-text-container.expanded .extra-text {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .see-more-btn {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid var(--brand-green);
+      border-radius: 10px;
+      color: var(--brand-green);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .see-more-btn:hover {
+      background: rgba(0, 255, 136, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    /* Sur desktop, tout est visible par défaut */
+    .see-more-btn.desktop-hidden {
+      display: none;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Pour desktop, masquer le bouton et tout afficher */
+  @media (min-width: 769px) {
+    .see-more-btn {
+      display: none;
+    }
+    
+    .mobile-text-container .extra-text {
+      display: block !important;
+    }
+  }
         
         /* Section Styles */
         section {
@@ -934,9 +997,9 @@
                 
                 <div class="trust-section">
                 <div class="avatars">
-                    <img src="https://i.pravatar.cc/150?img=1" alt="Client" class="avatar">
-                    <img src="https://i.pravatar.cc/150?img=2" alt="Client" class="avatar">
-                    <img src="https://i.pravatar.cc/150?img=3" alt="Client" class="avatar">
+                    <img src="images/as.png" alt="Client" class="avatar">
+                    <img src="images/hm.png" alt="Client" class="avatar">
+                    <img src="images/AP.png" alt="Client" class="avatar">
                 </div>
                 <div class="trust-text">
                     <div class="stars">★★★★★</div>
@@ -978,48 +1041,67 @@
         </section></div>
 
         <!-- About Section -->
-        <section id="about">
-            <div class="section-header">
-                <h2>Qui sommes-nous ?</h2>
-            </div>
-            <div class="glass-card fade-in">
-                <p>
-                    HeyHappy est une startup dynamique fondée par une équipe de jeunes experts passionnés et performants dans le domaine du design et du développement numérique. Notre mission est de mettre à votre disposition des talents créatifs et techniques pour répondre à vos besoins spécifiques, que ce soit pour du design graphique, du développement web, mobile, ou tout autre projet digital.
-                </p>
-                <p>
-                    Nous croyons en une approche collaborative et flexible, permettant à chaque entreprise de bénéficier d'un service sur mesure. Avec HeyHappy, vous n'êtes plus contraint aux horaires ou aux coûts fixes des agences traditionnelles. Nous proposons une solution d'abonnement sans engagement, avec des délais de livraison rapides et une équipe dédiée à vos projets, prête à s'adapter à vos besoins.
-                </p>
-                
-                <div class="trust-section" style="margin-top: 2rem;">
-                    <div class="avatars">
-                        <img src="https://i.pravatar.cc/150?img=4" alt="Expert" class="avatar">
-                        <img src="https://i.pravatar.cc/150?img=5" alt="Expert" class="avatar">
-                        <img src="https://i.pravatar.cc/150?img=6" alt="Expert" class="avatar">
-                    </div>
-                    <div class="trust-text">
-                        <div style="color: var(--text-light);">50+ experts pour vos besoins</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Section "Qui sommes-nous" - Version mobile optimisée -->
+<section id="about">
+  <div class="section-header">
+    <h2>Qui sommes-nous ?</h2>
+  </div>
+  <div class="glass-card fade-in">
+    <div class="mobile-text-container collapsed" id="about-text">
+      <div class="text-content">
+        <p>
+          HeyHappy est une startup dynamique fondée par une équipe de jeunes experts passionnés dans le domaine du design et du développement numérique. Notre mission est de mettre à votre disposition des talents créatifs et techniques pour répondre à vos besoins spécifiques.
+        </p>
+        <div class="extra-text">
+          <p>
+            Nous croyons en une approche collaborative et flexible, permettant à chaque entreprise de bénéficier d'un service sur mesure. Avec HeyHappy, vous n'êtes plus contraint aux horaires ou aux coûts fixes des agences traditionnelles. Nous proposons une solution d'abonnement sans engagement, avec des délais de livraison rapides et une équipe dédiée à vos projets, prête à s'adapter à vos besoins.
+          </p>
+        </div>
+      </div>
+    </div>
+    <button class="see-more-btn desktop-hidden" onclick="toggleSeeMore('about-text', this)">
+      Voir plus
+    </button>
+    
+    <div class="trust-section" style="margin-top: 2rem;">
+      <div class="avatars">
+        <img src="images/profile3.jpg" alt="Expert" class="avatar">
+        <img src="images/profil1.jpg" alt="Expert" class="avatar">
+        <img src="images/ceo.jpg" alt="Expert" class="avatar">
+      </div>
+      <div class="trust-text">
+        <div style="color: var(--text-light);">50+ experts pour vos besoins</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- For Who Section -->
-        <section id="for-who">
-            <div class="section-header">
-                <h2>C'est pour qui ?</h2>
-            </div>
-            <div class="glass-card fade-in">
-                <p>
-                    Notre offre est spécialement conçue pour les entreprises ambitieuses de toutes tailles qui souhaitent renforcer leurs équipes créatives et techniques de manière flexible. Que vous soyez une startup, une PME ou une grande entreprise, HeyHappy est là pour vous accompagner à chaque étape de vos projets digitaux.
-                </p>
-                <p>
-                    Vous avez besoin d'un designer, d'un développeur web, ou d'un graphiste sans vous engager à long terme ? Notre solution d'abonnement vous permet de bénéficier d'experts à la demande, selon vos besoins spécifiques et votre rythme. Plus de délais interminables ou de coûts fixes. Nous vous offrons la possibilité de travailler avec des professionnels hautement qualifiés, quand vous en avez besoin.
-                </p>
-                <p>
-                    Que vous souhaitiez améliorer votre présence en ligne, créer une application mobile, ou produire du contenu visuel percutant, HeyHappy est la solution idéale pour des résultats rapides et de qualité. Un abonnement simple, flexible, et sans engagement, pour propulser votre entreprise vers de nouveaux sommets.
-                </p>
-            </div>
-        </section>
+<!-- Section "C'est pour qui" - Version mobile optimisée -->
+<section id="for-who">
+  <div class="section-header">
+    <h2>C'est pour qui ?</h2>
+  </div>
+  <div class="glass-card fade-in">
+    <div class="mobile-text-container collapsed" id="forwho-text">
+      <div class="text-content">
+        <p>
+          Notre offre est spécialement conçue pour les entreprises ambitieuses de toutes tailles qui souhaitent renforcer leurs équipes créatives et techniques de manière flexible.
+        </p>
+        <div class="extra-text">
+          <p>
+            Vous avez besoin d'un designer, d'un développeur web, ou d'un graphiste sans vous engager à long terme ? Notre solution d'abonnement vous permet de bénéficier d'experts à la demande, selon vos besoins spécifiques et votre rythme. Plus de délais interminables ou de coûts fixes.
+          </p>
+          <p>
+            Que vous souhaitiez améliorer votre présence en ligne, créer une application mobile, ou produire du contenu visuel percutant, HeyHappy est la solution idéale pour des résultats rapides et de qualité. Un abonnement simple, flexible, et sans engagement.
+          </p>
+        </div>
+      </div>
+    </div>
+    <button class="see-more-btn desktop-hidden" onclick="toggleSeeMore('forwho-text', this)">
+      Voir plus
+    </button>
+  </div>
+</section>
 
         <!-- Réalisations Section -->
         <section id="realisations">
@@ -1381,6 +1463,40 @@
                 orb.style.transform = `translateY(${scrolled * speed}px)`;
             });
         });
+
+        // Fonction pour gérer l'affichage du texte complet sur mobile
+function toggleSeeMore(containerId, button) {
+  const container = document.getElementById(containerId);
+  
+  if (container.classList.contains('collapsed')) {
+    container.classList.remove('collapsed');
+    container.classList.add('expanded');
+    button.textContent = 'Voir moins';
+  } else {
+    container.classList.remove('expanded');
+    container.classList.add('collapsed');
+    button.textContent = 'Voir plus';
+  }
+}
+
+// Masquer les boutons sur desktop au chargement
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.innerWidth > 768) {
+    const seeMoreButtons = document.querySelectorAll('.see-more-btn');
+    const textContainers = document.querySelectorAll('.mobile-text-container');
+    
+    // Tout afficher sur desktop
+    textContainers.forEach(container => {
+      container.classList.remove('collapsed');
+      container.classList.add('expanded');
+    });
+    
+    // Masquer les boutons
+    seeMoreButtons.forEach(button => {
+      button.style.display = 'none';
+    });
+  }
+});
     </script>
 </body>
 </html>
