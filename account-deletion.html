@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSpend - Account Deletion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #7c3aed;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-bg: #ffffff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            scroll-behavior: smooth;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+            clip-path: ellipse(150% 100% at 50% 0%);
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        .logo-container {
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .logo-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.15));
+            transition: transform 0.3s ease;
+        }
+        .logo-container:hover img {
+            transform: scale(1.05);
+        }
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .quick-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+            padding: 0 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .quick-nav a {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 14px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 25px rgba(99,102,241,0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .quick-nav a:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(99,102,241,0.4);
+            background: white;
+            color: var(--primary-dark);
+        }
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+        .card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+        .warning-card {
+            background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+            border-left: 6px solid var(--warning);
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+        }
+        .warning-card strong {
+            color: #92400e;
+            font-size: 1.25rem;
+            display: block;
+            margin-bottom: 16px;
+        }
+        .warning-card ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+            list-style: none;
+        }
+        .warning-card li {
+            padding-left: 24px;
+            position: relative;
+            font-size: 1rem;
+        }
+        .warning-card li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+        }
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 28px;
+        }
+        .step-item {
+            display: flex;
+            gap: 24px;
+            padding: 24px;
+            border-radius: 16px;
+            background: #f1f5f9;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .step-item:hover {
+            background: #e2e8f0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: var(--primary);
+            color: white;
+            min-width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+        .step-content strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+        .info-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid #dbeafe;
+            margin-top: 24px;
+        }
+        .info-box strong {
+            color: #1e40af;
+            font-size: 1.15rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 24px;
+        }
+        .data-list h3 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .data-list ul {
+            list-style: none;
+        }
+        .data-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+        }
+        .data-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .contact-cta {
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 48px 32px;
+            border-radius: 24px;
+            margin-top: 40px;
+        }
+        .contact-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+        .btn-email {
+            display: inline-block;
+            margin-top: 24px;
+            background: var(--primary);
+            color: white;
+            padding: 16px 36px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(99,102,241,0.3);
+        }
+        .btn-email:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 35px rgba(99,102,241,0.4);
+        }
+        footer {
+            text-align: center;
+            padding: 80px 24px 60px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: 500;
+        }
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .lang-switcher button {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .lang-switcher button.active {
+            background: var(--primary);
+            color: white;
+        }
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 20px 40px;
+            }
+            .card {
+                padding: 32px 24px;
+            }
+            .step-item {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .quick-nav {
+                gap: 8px;
+            }
+            .quick-nav a {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .data-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 40px 16px;
+            }
+            .card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
+        </div>
+        <div class="logo-container">
+            <img src="smartlogo.png" alt="SmartSpend Logo">
+        </div>
+        <h1 id="page-title">SmartSpend - Account Deletion</h1>
+        <p id="hero-desc">Manage your account and delete your data</p>
+        <nav class="quick-nav">
+            <a href="#methods">Methods</a>
+            <a href="#data">Data Deleted</a>
+            <a href="#rights">Your Rights</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <section class="card">
+            <h2 id="intro-title">📋 Overview</h2>
+            <p>This page explains how to delete your SmartSpend account and all associated data. We respect your right to privacy and make complete data deletion straightforward.</p>
+        </section>
+
+        <div class="warning-card" id="warning">
+            <strong>⚠️ Attention: Irreversible Action</strong>
+            <p>Account deletion is <strong>permanent and irreversible</strong>.</p>
+            <p>All your data will be removed from our servers, including:</p>
+            <ul>
+                <li>User profile</li>
+                <li>Transaction history</li>
+                <li>Budget categories</li>
+                <li>Financial goals</li>
+                <li>Settings & Preferences</li>
+                <li>Premium status</li>
+            </ul>
+        </div>
+
+        <section class="card" id="methods">
+            <h2>🎯 Method 1: From the App</h2>
+            <p>The simplest and fastest way:</p>
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Open SmartSpend App</strong>
+                        <p>Launch the app on your Android or iOS device.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>Access Profile</strong>
+                        <p>Tap profile icon or open side menu and select "My Profile".</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>Account Actions</strong>
+                        <p>Scroll to "Account Actions" section at bottom of page.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <strong>Delete Account</strong>
+                        <p>Tap the red "Delete Account" button.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <strong>Confirmation</strong>
+                        <p>Read warning. Enter password if prompted to confirm.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <strong>Final Validation</strong>
+                        <p>Tap "Delete" to confirm permanently.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📧 Method 2: By Email</h2>
+            <p>If you cannot access the app:</p>
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Email Support</strong>
+                        <p>Contact us at <a href="mailto:heyhappyproject@gmail.com">heyhappyproject@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>Required Info</strong>
+                        <p>Subject: "Account Deletion Request". Specify your associated email address.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>Processing Time</strong>
+                        <p>Processed within 30 days max. You will receive confirmation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" id="data">
+            <h2>🗑️ Permanently Deleted Data</h2>
+            <div class="data-grid">
+                <div class="data-list">
+                    <h3>Personal Data</h3>
+                    <ul>
+                        <li>Profile (Name, email, photo)</li>
+                        <li>Login credentials</li>
+                        <li>Preferences and notifications</li>
+                    </ul>
+                </div>
+                <div class="data-list">
+                    <h3>Financial Data</h3>
+                    <ul>
+                        <li>Full transaction history</li>
+                        <li>Budgets and categories</li>
+                        <li>Goals and statistics</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📝 Temporary Retention</h2>
+            <div class="info-box">
+                <strong>ℹ️ Legal Obligations</strong>
+                <ul style="margin-top: 12px;">
+                    <li><strong>Billing</strong>: 10 years for accounting obligations (EU).</li>
+                    <li><strong>Security Logs</strong>: 1 year for fraud prevention.</li>
+                    <li><strong>Anonymized Data</strong>: Aggregated non-identifiable statistics.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>⏱️ Deletion Timelines</h2>
+            <ul style="list-style: none; max-width: 500px; margin: 0 auto;">
+                <li style="padding-left: 24px; position: relative; margin-bottom: 16px; font-size: 1.05rem;">
+                    <span style="position: absolute; left: 0; font-size: 1.2rem;">⚡</span>
+                    <strong>Instant</strong>: Account deactivation.
+                </li>
+                <li style="padding-left: 24px; position: relative; margin-bottom: 16px; font-size: 1.05rem;">
+                    <span style="position: absolute; left: 0; font-size: 1.2rem;">⏳</span>
+                    <strong>48 hours</strong>: Active database removal.
+                </li>
+                <li style="padding-left: 24px; position: relative; margin-bottom: 16px; font-size: 1.05rem;">
+                    <span style="position: absolute; left: 0; font-size: 1.2rem;">📅</span>
+                    <strong>30 days</strong>: Full backups deletion.
+                </li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>🔄 Partial Deletion</h2>
+            <p>You can delete specific items without closing your account:</p>
+            <ul style="margin-top: 16px; list-style: none;">
+                <li style="padding-left: 24px; position: relative; margin-bottom: 12px;">✓ Individual transactions via "Transactions" tab.</li>
+                <li style="padding-left: 24px; position: relative; margin-bottom: 12px;">✓ Budget categories via "Budget" tab.</li>
+                <li style="padding-left: 24px; position: relative; margin-bottom: 12px;">✓ Goals via "Goals" tab.</li>
+            </ul>
+        </section>
+
+        <section class="card" id="rights">
+            <h2>⚖️ Your Rights (GDPR)</h2>
+            <p>In accordance with applicable laws, you have the following rights:</p>
+            <div class="data-grid">
+                <div class="data-list">
+                    <ul>
+                        <li>Right to erasure</li>
+                        <li>Right of access</li>
+                        <li>Right to rectification</li>
+                    </ul>
+                </div>
+                <div class="data-list">
+                    <ul>
+                        <li>Right to portability</li>
+                        <li>Right to object</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-cta">
+            <h3>💬 Need Help?</h3>
+            <p>Our team is here to assist you with your process.</p>
+            <a href="mailto:heyhappyproject@gmail.com" class="btn-email">Contact Support</a>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">Response within 48 business hours</p>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>SmartSpend</strong> - Your Personal Finance Assistant</p>
+        <p style="margin: 20px 0;">
+            <a href="https://www.termsfeed.com/live/74f14167-2fb6-4720-89b0-f242ca35f1f5">Privacy Policy</a>
+            <a href="https://www.termsfeed.com/live/74f14167-2fb6-4720-89b0-f242ca35f1f5">Terms of Use</a>
+        </p>
+        <p>&copy; 2026 SmartSpend. All rights reserved.</p>
+        <p style="font-size: 0.85rem; margin-top: 8px;">Last updated January 2026</p>
+    </footer>
+
+    <script>
+        // Language switcher
+        const translations = {
+            en: {
+                title: "SmartSpend - Account Deletion",
+                desc: "Manage your account and delete your data",
+                intro: "📋 Overview",
+                introText: "This page explains how to delete your SmartSpend account and all associated data. We respect your right to privacy and make complete data deletion straightforward.",
+                warningTitle: "⚠️ Attention: Irreversible Action",
+                warningText1: "Account deletion is",
+                warningText2: "permanent and irreversible",
+                warningText3: "All your data will be removed from our servers, including:",
+                warningItems: ["User profile", "Transaction history", "Budget categories", "Financial goals", "Settings & Preferences", "Premium status"],
+                method1: "🎯 Method 1: From the App",
+                method1Text: "The simplest and fastest way:",
+                step1: "Open SmartSpend App", step1desc: "Launch the app on your Android or iOS device.",
+                step2: "Access Profile", step2desc: "Tap profile icon or open side menu and select \"My Profile\".",
+                step3: "Account Actions", step3desc: "Scroll to \"Account Actions\" section at bottom of page.",
+                step4: "Delete Account", step4desc: "Tap the red \"Delete Account\" button.",
+                step5: "Confirmation", step5desc: "Read warning. Enter password if prompted to confirm.",
+                step6: "Final Validation", step6desc: "Tap \"Delete\" to confirm permanently.",
+                method2: "📧 Method 2: By Email",
+                method2Text: "If you cannot access the app:",
+                step21: "Email Support", step21desc: "Contact us at heyhappyproject@gmail.com",
+                step22: "Required Info", step22desc: "Subject: \"Account Deletion Request\". Specify your associated email address.",
+                step23: "Processing Time", step23desc: "Processed within 30 days max. You will receive confirmation.",
+                dataTitle: "🗑️ Permanently Deleted Data",
+                personal: "Personal Data",
+                personalItems: ["Profile (Name, email, photo)", "Login credentials", "Preferences and notifications"],
+                financial: "Financial Data",
+                financialItems: ["Full transaction history", "Budgets and categories", "Goals and statistics"],
+                retention: "📝 Temporary Retention",
+                legal: "ℹ️ Legal Obligations",
+                legalItems: ["<strong>Billing</strong>: 10 years for accounting obligations (EU).", "<strong>Security Logs</strong>: 1 year for fraud prevention.", "<strong>Anonymized Data</strong>: Aggregated non-identifiable statistics."],
+                timeline: "⏱️ Deletion Timelines",
+                instant: "<strong>Instant</strong>: Account deactivation.",
+                hours48: "<strong>48 hours</strong>: Active database removal.",
+                days30: "<strong>30 days</strong>: Full backups deletion.",
+                partial: "🔄 Partial Deletion",
+                partialText: "You can delete specific items without closing your account:",
+                partialItems: ["Individual transactions via \"Transactions\" tab.", "Budget categories via \"Budget\" tab.", "Goals via \"Goals\" tab."],
+                rights: "⚖️ Your Rights (GDPR)",
+                rightsText: "In accordance with applicable laws, you have the following rights:",
+                rights1: ["Right to erasure", "Right of access", "Right to rectification"],
+                rights2: ["Right to portability", "Right to object"],
+                help: "💬 Need Help?",
+                helpText: "Our team is here to assist you with your process.",
+                helpBtn: "Contact Support",
+                helpSub: "Response within 48 business hours"
+            },
+            fr: {
+                title: "SmartSpend - Suppression de Compte",
+                desc: "Gestion du compte et suppression des données",
+                intro: "📋 Présentation",
+                introText: "Cette page explique comment supprimer votre compte SmartSpend et toutes les données associées. Nous respectons votre droit à la vie privée et facilitons la suppression complète de vos informations.",
+                warningTitle: "⚠️ Attention : Action Irréversible",
+                warningText1: "La suppression du compte est",
+                warningText2: "permanente et irréversible",
+                warningText3: "Toutes vos données seront supprimées de nos serveurs, incluant :",
+                warningItems: ["Profil utilisateur", "Historique de transactions", "Catégories de budget", "Objectifs financiers", "Paramètres & Préférences", "Statut Premium"],
+                method1: "🎯 Méthode 1 : Depuis l'application",
+                method1Text: "Le moyen le plus simple et le plus rapide :",
+                step1: "Ouvrez l'application SmartSpend", step1desc: "Lancez l'application sur votre appareil Android ou iOS.",
+                step2: "Accédez à votre profil", step2desc: "Appuyez sur l'icône de profil ou ouvrez le menu latéral et sélectionnez \"Mon Profil\".",
+                step3: "Actions du compte", step3desc: "Faites défiler jusqu'à la section \"Actions du compte\" en bas de page.",
+                step4: "Supprimer le compte", step4desc: "Appuyez sur le bouton rouge \"Supprimer le compte\".",
+                step5: "Confirmation", step5desc: "Lisez l'avertissement. Saisissez votre mot de passe si demandé pour confirmer.",
+                step6: "Validation finale", step6desc: "Appuyez sur \"Supprimer\" pour confirmer définitivement.",
+                method2: "📧 Méthode 2 : Par Email",
+                method2Text: "Si vous ne pouvez pas accéder à l'application :",
+                step21: "Envoyez un email au support", step21desc: "Contactez-nous à : heyhappyproject@gmail.com",
+                step22: "Informations requises", step22desc: "Objet : \"Demande de suppression de compte\". Précisez votre adresse email associée.",
+                step23: "Délai de traitement", step23desc: "Traitement sous 30 jours maximum. Vous recevrez une confirmation.",
+                dataTitle: "🗑️ Données supprimées définitivement",
+                personal: "Données Personnelles",
+                personalItems: ["Profil (Nom, email, photo)", "Identifiants de connexion", "Préférences et notifications"],
+                financial: "Données Financières",
+                financialItems: ["Historique complet des transactions", "Budgets et catégories", "Objectifs et statistiques"],
+                retention: "📝 Conservation temporaire",
+                legal: "ℹ️ Obligations Légales",
+                legalItems: ["<strong>Facturation</strong> : 10 ans pour obligations comptables (UE).", "<strong>Logs de sécurité</strong> : 1 an pour la prévention des fraudes.", "<strong>Données anonymisées</strong> : Statistiques agrégées non identifiables."],
+                timeline: "⏱️ Délais de suppression",
+                instant: "<strong>Instantané</strong> : Désactivation de votre compte.",
+                hours48: "<strong>48 heures</strong> : Suppression de la base de données active.",
+                days30: "<strong>30 jours</strong> : Suppression totale des sauvegardes (Backups).",
+                partial: "🔄 Suppression partielle",
+                partialText: "Vous pouvez supprimer des éléments spécifiques sans fermer votre compte :",
+                partialItems: ["Transactions individuelles via l'onglet \"Transactions\".", "Catégories de budget via l'onglet \"Budget\".", "Objectifs via l'onglet \"Objectifs\"."],
+                rights: "⚖️ Vos Droits (RGPD)",
+                rightsText: "Conformément aux lois en vigueur, vous disposez des droits suivants :",
+                rights1: ["Droit à l'effacement", "Droit d'accès", "Droit de rectification"],
+                rights2: ["Droit à la portabilité", "Droit d'opposition"],
+                help: "💬 Besoin d'aide ?",
+                helpText: "Notre équipe est là pour vous accompagner dans vos démarches.",
+                helpBtn: "Contacter le support",
+                helpSub: "Réponse sous 48h ouvrées"
+            }
+        };
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = 'en';
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentLang = btn.dataset.lang;
+                langBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateLanguage();
+            });
+        });
+
+        function updateLanguage() {
+            document.documentElement.lang = currentLang;
+            document.getElementById('page-title').textContent = translations[currentLang].title;
+            document.getElementById('hero-desc').textContent = translations[currentLang].desc;
+            document.getElementById('intro-title').textContent = translations[currentLang].intro;
+            document.querySelector('#intro-title + p').textContent = translations[currentLang].introText;
+
+            // Warning
+            document.querySelector('#warning strong').innerHTML = translations[currentLang].warningTitle;
+            document.querySelector('#warning p:nth-of-type(1)').innerHTML = translations[currentLang].warningText1 + ' <strong>' + translations[currentLang].warningText2 + '</strong>.';
+            document.querySelector('#warning p:nth-of-type(2)').textContent = translations[currentLang].warningText3;
+            const warningLis = document.querySelectorAll('#warning ul li');
+            translations[currentLang].warningItems.forEach((item, i) => {
+                if (warningLis[i]) warningLis[i].textContent = item;
+            });
+
+            // Methods
+            document.querySelector('#methods h2').textContent = translations[currentLang].method1;
+            document.querySelector('#methods p').textContent = translations[currentLang].method1Text;
+            updateSteps(1, ['step1', 'step2', 'step3', 'step4', 'step5', 'step6']);
+            const method2h2 = document.querySelector('#methods ~ .card h2');
+            method2h2.textContent = translations[currentLang].method2;
+            const method2p = method2h2.nextElementSibling;
+            method2p.textContent = translations[currentLang].method2Text;
+            updateSteps(2, ['step21', 'step22', 'step23']);
+
+            // Data
+            document.querySelector('#data h2').textContent = translations[currentLang].dataTitle;
+            updateList('.data-list:nth-child(1) ul', translations[currentLang].personalItems);
+            updateList('.data-list:nth-child(3) ul', translations[currentLang].financialItems);
+
+            // Retention
+            const retentionCard = document.querySelector('#data ~ .card');
+            retentionCard.querySelector('h2').textContent = translations[currentLang].retention;
+            const infoStrong = retentionCard.querySelector('.info-box strong');
+            infoStrong.textContent = translations[currentLang].legal;
+            const legalLis = retentionCard.querySelectorAll('.info-box ul li');
+            translations[currentLang].legalItems.forEach((item, i) => {
+                if (legalLis[i]) legalLis[i].innerHTML = item;
+            });
+
+            // Timeline
+            const timelineCard = retentionCard.nextElementSibling;
+            timelineCard.querySelector('h2').textContent = translations[currentLang].timeline;
+            const timelineLis = timelineCard.querySelectorAll('li');
+            timelineLis[0].innerHTML = '<span style="position: absolute; left: 0; font-size: 1.2rem;">⚡</span>' + translations[currentLang].instant;
+            timelineLis[1].innerHTML = '<span style="position: absolute; left: 0; font-size: 1.2rem;">⏳</span>' + translations[currentLang].hours48;
+            timelineLis[2].innerHTML = '<span style="position: absolute; left: 0; font-size: 1.2rem;">📅</span>' + translations[currentLang].days30;
+
+            // Partial
+            const partialCard = timelineCard.nextElementSibling;
+            partialCard.querySelector('h2').textContent = translations[currentLang].partial;
+            partialCard.querySelector('p').textContent = translations[currentLang].partialText;
+            updateList(partialCard.querySelector('ul'), translations[currentLang].partialItems);
+
+            // Rights
+            document.querySelector('#rights h2').textContent = translations[currentLang].rights;
+            document.querySelector('#rights p').textContent = translations[currentLang].rightsText;
+            updateList('#rights .data-list:nth-child(1) ul', translations[currentLang].rights1);
+            updateList('#rights .data-list:nth-child(2) ul', translations[currentLang].rights2);
+
+            // Contact
+            document.querySelector('.contact-cta h3').textContent = translations[currentLang].help;
+            document.querySelector('.contact-cta p').textContent = translations[currentLang].helpText;
+            document.querySelector('.btn-email').textContent = translations[currentLang].helpBtn;
+            document.querySelector('.contact-cta p:last-of-type').textContent = translations[currentLang].helpSub;
+
+            // Update quick nav
+            document.querySelector('.quick-nav a:nth-child(1)').textContent = currentLang === 'en' ? 'Methods' : 'Méthodes';
+            document.querySelector('.quick-nav a:nth-child(2)').textContent = currentLang === 'en' ? 'Data Deleted' : 'Données supprimées';
+            document.querySelector('.quick-nav a:nth-child(3)').textContent = currentLang === 'en' ? 'Your Rights' : 'Vos droits';
+
+            // Update titles
+            document.querySelectorAll('.data-list h3')[0].textContent = translations[currentLang].personal;
+            document.querySelectorAll('.data-list h3')[1].textContent = translations[currentLang].financial;
+        }
+
+        function updateSteps(sectionNum, keys) {
+            const steps = sectionNum === 1 ? document.querySelectorAll('#methods .steps-container .step-item') : document.querySelectorAll('#methods ~ .card .steps-container .step-item');
+            keys.forEach((key, i) => {
+                if (steps[i]) {
+                    steps[i].querySelector('.step-content strong').textContent = translations[currentLang][key];
+                    steps[i].querySelector('.step-content p').innerHTML = translations[currentLang][key + 'desc'] || '';
+                }
+            });
+        }
+
+        function updateList(selector, items) {
+            const lis = document.querySelectorAll(selector + ' li');
+            items.forEach((item, i) => {
+                if (lis[i]) lis[i].innerHTML = '<span style="position: absolute; left: 0;">✓</span>' + item;
+            });
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.quick-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Set English by default (already en)
+        updateLanguage();
+    </script>
+</body>
+</html>
